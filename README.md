@@ -1,2 +1,2 @@
-# Web-Scraper
-Simple web scraper project to aid in learning Beautiful Soup 4
+# Twitter Bot
+- Twitter bot that posts the weather of my area every morning
