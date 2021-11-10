@@ -130,3 +130,5 @@ dmypy.json
 .pyre/
 
 requirements.txt
+temp.py
+id_stuff.txt
