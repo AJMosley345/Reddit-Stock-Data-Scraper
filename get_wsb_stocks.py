@@ -40,12 +40,10 @@ def parseWSBHTML(wsb_html):
     #endregion
 
     #region print and append
-    # print("r/WallStreetBets Comments:\n")
     for i in wsb_div_container:
         p_list.append(i.find('p'))
         for j in p_list:
             wsb_comment_list.append(str(j))
-    # print(wsb_comment_list)
     #endregion
     return wsb_comment_list
 #endregion
