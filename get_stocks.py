@@ -10,7 +10,7 @@ reddit = praw.Reddit(
     client_secret='ypCn3ljSq64KBtVuIKPjr9qShyEeNg',
     user_agent='Stock Data Scraping'
 )
-s_id = 'qudhty'
+s_id = 'qv4wv4'
 #endregion
 
 #region getting and parsing content
@@ -104,13 +104,13 @@ def getPopularStocksTickers():
     return stocks_dataframe
 #endregion
 
-def popTickersList():
+def popTickersListStock():
     wsb_dataset = getPopularStocksTickers()
     pop_list = wsb_dataset.Ticker.tolist()
     return pop_list
 
 def runStocks():
-    pop_list = popTickersList()
+    pop_list = popTickersListStock()
     slowprint("Current Price of the most talked about stocks on r/Stocks\n", .3)
     for tickers in pop_list:
         f_prince = "%.2f" % si.get_live_price(tickers)

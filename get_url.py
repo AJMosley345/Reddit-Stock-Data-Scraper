@@ -9,8 +9,14 @@ reddit = praw.Reddit(
     user_agent='Stock Data Scraping'
 )
 
-subreddit = reddit.subreddit('wallstreetbets')
-for item in subreddit.gilded():
-    print(item)
+def getID():
+    subreddit = reddit.subreddit('wallstreetbets').hot()
+    for sub in subreddit:
+        if sub.link_flair_text == "Daily Discussion":
+            print(sub.link_flair_text)
+            id = sub
+            print(sub)
+            break
+    return id
 
-# reddit.submission()
+getID()

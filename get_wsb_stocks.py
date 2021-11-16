@@ -10,9 +10,19 @@ reddit = praw.Reddit(
     client_secret='ypCn3ljSq64KBtVuIKPjr9qShyEeNg',
     user_agent='Stock Data Scraping'
 )
-wsb_dd_id = 'qv5cg4'
-wsb_m_id = 'qtzc0g'
 #endregion
+
+def getID():
+    subreddit = reddit.subreddit('wallstreetbets').hot()
+    for sub in subreddit:
+        if sub.link_flair_text == "Daily Discussion":
+            id = sub
+            break
+    return id
+
+wsb_dd_id = getID()
+wsb_m_id = 'qtzc0g'
+
 
 #region getting and parsing content
 def getDiscussionComments(wsb_dd_id):

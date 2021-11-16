@@ -123,11 +123,9 @@ def runCrypto():
         for j in pop_list:
             pop_list[i] = (j.upper() + '-USD')
             i += 1
-    slowprint("Prices of the most talked about crypto on r/Cryptocurrency", .3)
+    slowprint("Prices of the most talked about crypto on r/Cryptocurrency\n", .2)
     for items in set(pop_list):
         crypto = pc.get_product_ticker(product_id= items)
         price = crypto['price']
-        f_string = f'{items}:\n{price}'
-        slowprint(f_string, .3)
-
-
+        f_string = f'{items}:\n{price}\n'
+        slowprint(f_string, .2)
