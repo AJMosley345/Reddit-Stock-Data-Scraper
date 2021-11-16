@@ -3,13 +3,14 @@ import pandas as pd
 import praw
 from bs4 import BeautifulSoup
 from yahoo_fin import stock_info as si
+from slowprint.slowprint import slowprint
 # Creation of reddit instance
 reddit = praw.Reddit(
     client_id='2a5_2RZA_qNrdMZw9c5uEg', 
     client_secret='ypCn3ljSq64KBtVuIKPjr9qShyEeNg',
     user_agent='Stock Data Scraping'
 )
-s_id = 'qs8ens'
+s_id = 'qudhty'
 #endregion
 
 #region getting and parsing content
@@ -60,7 +61,7 @@ def getMostActiveSymbols():
 
     return symbol_list
 
-def getPopularTickers():
+def getPopularStocksTickers():
     #region function calls and variables
     stocks_dataset, split_list, full_list, df = [], [], [], {}
     i = 0
@@ -103,14 +104,16 @@ def getPopularTickers():
     return stocks_dataframe
 #endregion
 
-def main():
-    stocks_dataframe = getPopularTickers()
-    pop_list = stocks_dataframe.Ticker.tolist()
-    print("Current Price of the most talked about stocks on r/Stocks", "\n")
+def popTickersList():
+    wsb_dataset = getPopularStocksTickers()
+    pop_list = wsb_dataset.Ticker.tolist()
+    return pop_list
+
+def runStocks():
+    pop_list = popTickersList()
+    slowprint("Current Price of the most talked about stocks on r/Stocks\n", .3)
     for tickers in pop_list:
         f_prince = "%.2f" % si.get_live_price(tickers)
         f_string = f'{tickers}:\n{f_prince}'
-        print(f_string)
+        slowprint(f_string, .3)
 
-if __name__ == "__main__":
-    main()

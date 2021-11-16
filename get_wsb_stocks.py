@@ -3,14 +3,15 @@ import pandas as pd
 import praw
 from bs4 import BeautifulSoup
 from yahoo_fin import stock_info as si
+from slowprint.slowprint import slowprint
 # Creation of reddit instance
 reddit = praw.Reddit(
     client_id='2a5_2RZA_qNrdMZw9c5uEg', 
     client_secret='ypCn3ljSq64KBtVuIKPjr9qShyEeNg',
     user_agent='Stock Data Scraping'
 )
-wsb_dd_id = 'qs8s63'
-wsb_m_id = 'qruwj2'
+wsb_dd_id = 'qv5cg4'
+wsb_m_id = 'qtzc0g'
 #endregion
 
 #region getting and parsing content
@@ -75,7 +76,7 @@ def getAndParseSub():
     return pop_list
 #endregion
 
-def getPopularTickers():
+def getPopularWSBTickers():
     #region function calls and variables
     wsb_dataset, split_list, full_list, df = [], [], [], {}
     i = 0
@@ -115,14 +116,36 @@ def getPopularTickers():
     return wsb_dataframe
 
 def popTickersList():
-    wsb_dataset = getPopularTickers()
+    wsb_dataset = getPopularWSBTickers()
     pop_list = wsb_dataset.Ticker.tolist()
-    print(pop_list)
     return pop_list
 
-def main():
-    wsb_dataframe = getPopularTickers()
-    print(wsb_dataframe[['Ticker', 'Occurs']])
+def occurs():
+    wsb_occurs = getPopularWSBTickers()
+    full_list = []
+    pop_list = wsb_occurs.Ticker.tolist()
+    occurs_list = wsb_occurs.Occurs.tolist()
+    full_list.append(pop_list)
+    full_list.append(occurs_list)
+    return full_list
 
-if __name__ == "__main__":
-    main()
+def runWSB():
+    pop_list = occurs()
+    i = 0
+
+    occur = pop_list[1]
+    occur = [int(i) for i in occur]
+    # tickers = pop_list[0]
+
+    # for ticker in tickers:
+
+    slowprint("Most talked about stocks on r/WallStreetBets", .3)
+    while i < len(pop_list[0]):
+        if pop_list[0][i] == pop_list[0][i].lower():
+            pop_list[0].remove(pop_list[0][i].lower())
+            occur[i] += occur[i]
+            i += 1
+        else:
+            slowprint(pop_list[0][i], .3)
+            print(occur[i], "\n")
+            i += 1
